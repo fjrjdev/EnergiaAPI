@@ -1,6 +1,10 @@
 from rest_framework import serializers
+
+from django.core.validators import MinLengthValidator
+
 from .models import Plant
 from partners.serializers import PartnerSerializer
+from .validators import validate_cep
 
 class PlantSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -22,6 +26,12 @@ class PlantSerializer(serializers.ModelSerializer):
             "updated_at"
         ]
 
+
+    def validate(self, data):
+        if data["cep"]:
+            validate_cep(data['cep'])
+        return data
+
 class PlantDetailSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Plant
@@ -42,4 +52,10 @@ class PlantDetailSerializer(serializers.ModelSerializer):
             "updated_at"
         ]
         depth = 1
+    
+    def validate(self, data):
+        cep = data.get("cep", None)
+        if cep:
+            validate_cep(data['cep'])
+        return data
     partner = PartnerSerializer(read_only=True)
