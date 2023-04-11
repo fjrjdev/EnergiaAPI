@@ -30,5 +30,5 @@ class PlantDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class TopCapacityPlantsView(generics.ListAPIView):
-    queryset = Plant.objects.order_by('-maximum_capacity_GW').values()[0:4]
+    queryset = Plant.objects.order_by('-maximum_capacity_GW')[:5]
     serializer_class = PlantSerializer

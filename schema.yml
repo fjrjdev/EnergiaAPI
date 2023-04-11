@@ -4,25 +4,7 @@ info:
   version: 1.0.0
   description: Desafio Solfacil para seleção de desenvolvedor backend Jr
 paths:
-  /last-partners:
-    get:
-      operationId: last_partners_list
-      tags:
-      - last-partners
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Partner'
-          description: ''
-  /login:
+  /login/:
     post:
       operationId: login_create
       description: |-
@@ -49,7 +31,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TokenObtainPair'
           description: ''
-  /partners:
+  /partners/:
     get:
       operationId: partners_list
       tags:
@@ -94,7 +76,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Partner'
           description: ''
-  /partners/{id}:
+  /partners/{id}/:
     get:
       operationId: partners_retrieve
       parameters:
@@ -162,7 +144,25 @@ paths:
       responses:
         '204':
           description: No response body
-  /plants:
+  /partners/last-partners/:
+    get:
+      operationId: partners_last_partners_list
+      tags:
+      - partners
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Partner'
+          description: ''
+  /plants/:
     get:
       operationId: plants_list
       tags:
@@ -205,7 +205,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Plant'
           description: ''
-  /plants/{id}:
+  /plants/{id}/:
     get:
       operationId: plants_retrieve
       parameters:
@@ -273,11 +273,11 @@ paths:
       responses:
         '204':
           description: No response body
-  /top-capacity-plants:
+  /plants/top-capacity/:
     get:
-      operationId: top_capacity_plants_list
+      operationId: plants_top_capacity_list
       tags:
-      - top-capacity-plants
+      - plants
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -290,6 +290,33 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Plant'
+          description: ''
+  /refresh/:
+    post:
+      operationId: refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
           description: ''
 components:
   schemas:
@@ -305,7 +332,7 @@ components:
           maxLength: 200
         cnpj:
           type: string
-          maxLength: 20
+          minLength: 8
         email:
           type: string
           format: email
@@ -342,7 +369,7 @@ components:
           maxLength: 200
         cnpj:
           type: string
-          maxLength: 20
+          minLength: 8
         email:
           type: string
           format: email
@@ -371,6 +398,7 @@ components:
           maxLength: 200
         cep:
           type: string
+          minLength: 8
         latitude:
           type: number
           format: double
@@ -405,6 +433,7 @@ components:
           maxLength: 200
         cep:
           type: string
+          minLength: 8
         latitude:
           type: number
           format: double
@@ -449,6 +478,7 @@ components:
           maxLength: 200
         cep:
           type: string
+          minLength: 8
         latitude:
           type: number
           format: double
@@ -501,6 +531,18 @@ components:
       - password
       - refresh
       - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
   securitySchemes:
     basicAuth:
       type: http

@@ -24,11 +24,11 @@ class PartnerSerializer(serializers.ModelSerializer):
             "password": {"write_only": True},
         }
 
-    def validate(self, data):
-        if data['cnpj']:
-            cnpj_validator(data['cnpj'])
-            data['cnpj'] = re.sub("[^0-9]", "", data['cnpj'])
-        return data
+    def validate(self, attrs):
+        if attrs['cnpj']:
+            cnpj_validator(attrs['cnpj'])
+            attrs['cnpj'] = re.sub("[^0-9]", "", attrs['cnpj'])
+        return attrs
 
     def create(self, validated_data):
         user = Partner(
