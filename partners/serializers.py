@@ -9,7 +9,7 @@ class PartnerSerializer(serializers.ModelSerializer):
         model = Partner
         fields = [
             "id",
-            "username",
+            "name",
             "cnpj",
             "email",
             "password",

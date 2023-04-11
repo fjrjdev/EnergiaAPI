@@ -19,7 +19,7 @@ class PartnerViewTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-    def test_can_create_partner_with_same_username(self):
+    def test_can_create_partner_with_same_name(self):
         self.client.post(self.base_URL, self.partner_data_two, format="json")
         response = self.client.post(self.base_URL, self.partner_data_two, format="json")
 

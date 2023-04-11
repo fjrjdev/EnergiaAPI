@@ -10,13 +10,13 @@ class UserModelTest(TestCase):
     def setUpTestData(cls):
         cls.partner_data = mock_partner
 
-        cls.partner = Partner.objects.create_user(**cls.partner_data)
+        cls.partner = Partner.objects.create(**cls.partner_data)
     
     def test_partner_model(self):
         partner = Partner.objects.get(id=self.partner.id)
 
         id = partner._meta.get_field("id")
-        username = partner._meta.get_field("username")
+        name = partner._meta.get_field("name")
         email = partner._meta.get_field("email")
         cnpj = partner._meta.get_field("cnpj")
 
@@ -28,8 +28,8 @@ class UserModelTest(TestCase):
         self.assertTrue(id.primary_key)
         self.assertFalse(id.editable)
 
-        self.assertTrue(username.unique)
-        self.assertTrue(username.max_length, 200)
+        self.assertTrue(name.unique)
+        self.assertTrue(name.max_length, 200)
 
         self.assertTrue(email.unique)
         self.assertTrue(email.max_length, 254)
