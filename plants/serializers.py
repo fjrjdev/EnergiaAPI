@@ -1,6 +1,8 @@
 from rest_framework import serializers
+
 from .models import Plant
 from partners.serializers import PartnerSerializer
+from .validators import validate_cep
 
 class PlantSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -22,7 +24,13 @@ class PlantSerializer(serializers.ModelSerializer):
             "updated_at"
         ]
 
+    def validate(self, attrs):
+        if attrs["cep"]:
+            validate_cep(attrs['cep'])
+        return attrs
+
 class PlantDetailSerializer(serializers.ModelSerializer):
+    partner = PartnerSerializer(read_only=True)
     class Meta: 
         model = Plant
         fields = [
@@ -42,4 +50,9 @@ class PlantDetailSerializer(serializers.ModelSerializer):
             "updated_at"
         ]
         depth = 1
-    partner = PartnerSerializer(read_only=True)
+    
+    def validate(self, data):
+        cep = data.get("cep", None)
+        if cep:
+            validate_cep(data['cep'])
+        return data

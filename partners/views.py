@@ -24,5 +24,5 @@ class PartnerDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = "id"
 
 class LastPartnersView(generics.ListAPIView):
-    queryset = Partner.objects.order_by('-date_joined')[0:9]
+    queryset = Partner.objects.order_by('-created_at')[:10]
     serializer_class = PartnerSerializer

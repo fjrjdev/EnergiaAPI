@@ -1,10 +1,12 @@
-import requests
+from django.utils.translation import gettext as _
+from rest_framework import serializers
+from services.cep_service import cep_service
 
 def validate_cep(cep):
-    url = f"https://viacep.com.br/ws/{cep}/json/"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
+    data = cep_service(cep)
+    error = data.get("erro", None)
+
+    if data and not error:
         return data
-    else:
-        return None
+    message = _("Invalid CEP")
+    raise serializers.ValidationError(message)
