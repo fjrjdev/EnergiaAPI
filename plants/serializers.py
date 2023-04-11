@@ -26,13 +26,13 @@ class PlantSerializer(serializers.ModelSerializer):
             "updated_at"
         ]
 
-
     def validate(self, data):
         if data["cep"]:
             validate_cep(data['cep'])
         return data
 
 class PlantDetailSerializer(serializers.ModelSerializer):
+    partner = PartnerSerializer(read_only=True)
     class Meta: 
         model = Plant
         fields = [
@@ -58,4 +58,3 @@ class PlantDetailSerializer(serializers.ModelSerializer):
         if cep:
             validate_cep(data['cep'])
         return data
-    partner = PartnerSerializer(read_only=True)
