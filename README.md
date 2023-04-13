@@ -1,5 +1,5 @@
 # EnergiaAPI
-A EnergiaAPI é uma API RESTful que permite o registro de novos parceiros e  criação de dados sobre usinas de energia.
+A EnergiaAPI é uma API RESTful que permite o registro de novos parceiros e criação de dados sobre usinas de energia.
 
 ## Repositorio Frontend
 - [Gerenciamento de Usinas](https://github.com/fjrjdev/Gerenciamento-de-Usinas)
