@@ -327,7 +327,7 @@ components:
           type: string
           format: uuid
           readOnly: true
-        username:
+        name:
           type: string
           maxLength: 200
         cnpj:
@@ -354,9 +354,9 @@ components:
       - created_at
       - email
       - id
+      - name
       - password
       - updated_at
-      - username
     PatchedPartner:
       type: object
       properties:
@@ -364,7 +364,7 @@ components:
           type: string
           format: uuid
           readOnly: true
-        username:
+        name:
           type: string
           maxLength: 200
         cnpj:
@@ -407,8 +407,8 @@ components:
           format: double
         maximum_capacity_GW:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+          maximum: 32767
+          minimum: 0
         created_at:
           type: string
           format: date-time
@@ -442,8 +442,8 @@ components:
           format: double
         maximum_capacity_GW:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+          maximum: 32767
+          minimum: 0
         partner_id:
           type: string
           format: uuid
@@ -487,8 +487,8 @@ components:
           format: double
         maximum_capacity_GW:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+          maximum: 32767
+          minimum: 0
         created_at:
           type: string
           format: date-time
@@ -514,7 +514,7 @@ components:
     TokenObtainPair:
       type: object
       properties:
-        username:
+        email:
           type: string
           writeOnly: true
         password:
@@ -528,9 +528,9 @@ components:
           readOnly: true
       required:
       - access
+      - email
       - password
       - refresh
-      - username
     TokenRefresh:
       type: object
       properties:

@@ -31,7 +31,11 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -82,9 +86,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "_project.urls"
 
-CORS_ALLOWED_ORIGINS = [
-	'http://localhost:3000'
-]
 
 TEMPLATES = [
     {
@@ -172,6 +173,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=24),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=48),
 }
 
 AUTH_USER_MODEL = "partners.Partner"

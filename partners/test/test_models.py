@@ -5,7 +5,7 @@ from partners.models import Partner
 
 from .mocks import mock_partner, mock_partner_two
 
-class UserModelTest(TestCase):
+class PartnerModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.partner_data = mock_partner
@@ -29,10 +29,10 @@ class UserModelTest(TestCase):
         self.assertFalse(id.editable)
 
         self.assertTrue(name.unique)
-        self.assertTrue(name.max_length, 200)
+        self.assertEqual(name.max_length, 200)
 
         self.assertTrue(email.unique)
-        self.assertTrue(email.max_length, 254)
+        self.assertEqual(email.max_length, 254)
 
         self.assertTrue(cnpj.unique)
         self.assertEqual(cnpj.error_messages["unique"], "A user with that cpnj already exists.")

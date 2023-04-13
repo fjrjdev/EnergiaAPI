@@ -11,7 +11,7 @@ class Plant(models.Model):
 
     latitude = models.FloatField()
     longitude = models.FloatField()
-    maximum_capacity_GW = models.IntegerField()
+    maximum_capacity_GW = models.PositiveSmallIntegerField()
 
     partner = models.ForeignKey(
         'partners.Partner',
