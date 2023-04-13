@@ -44,7 +44,7 @@ class PlantModelTest(TestCase):
 
         self.assertEqual(latitude, 'FloatField')
         self.assertEqual(longitude, 'FloatField')
-        self.assertEqual(maximum_capacity_GW, 'IntegerField')
+        self.assertEqual(maximum_capacity_GW, 'PositiveSmallIntegerField')
 
     def test_plant_relations(self):
         self.assertEqual(
