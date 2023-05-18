@@ -45,6 +45,7 @@ Caso queira rodar localmente é necessário definir DB_HOST="localhost"
 ```
 docker compose up --build
 ```
+
 - Acesse a documentação, 
 
 ```
@@ -54,3 +55,5 @@ http://localhost:8000/docs/
 ## Documentação
 
 [Docs](http://localhost:8000/docs/)
+
+______________
